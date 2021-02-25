@@ -15,7 +15,7 @@ func main(){
 
 	//Pacote scan permite capturar o que o usuário irá escrever
 	var comando int
-	fmt.Scanf("%d", &comando) //a funcao scan espera receber um endereco da variável e não a variável em si, por isso deve-se usar o &, que indica o endereço da variável
+	//fmt.Scanf("%d", &comando) //a funcao scan espera receber um endereco da variável e não a variável em si, por isso deve-se usar o &, que indica o endereço da variável
 	 
-	//fmt.Scan(&comando) outra forma "mais limpa" e por inferência
+	fmt.Scan(&comando) //outra forma "mais limpa" e por inferência
 }
