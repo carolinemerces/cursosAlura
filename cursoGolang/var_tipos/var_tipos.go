@@ -14,5 +14,5 @@ func main(){
 	fmt.Println("Sua idade é", idade)
 	fmt.Println("Este programa está na versão", versao)
 
-	fmt.Println("O tipo da variável versão é", reflect.TypeOf(versao))
+	fmt.Println("O tipo da variável versão é", reflect.TypeOf(versao)) //o pacote reflect.TypeOf() permite descobrir o tipo de determinada variável
 }
