@@ -18,7 +18,8 @@ func main(){
 	//fmt.Scanf("%d", &comando) //a funcao scan espera receber um endereco da variável e não a variável em si, por isso deve-se usar o &, que indica o endereço da variável
 	 
 	fmt.Scan(&comando) //outra forma "mais limpa" e por inferência
-
+	
+	/*
 	if comando == 1{
 		fmt.Println("Monitorando...")
 	} else if comando == 2{
@@ -27,5 +28,18 @@ func main(){
 		fmt.Println("Saindo do programa...")
 	} else {
 		fmt.Println("Não conhece esse comando!")
+	}*/
+
+	switch comando {
+	case 1: 
+	fmt.Println("Monitorando...")
+	case 2:
+		fmt.Println("Exibindo logs...")
+	case 0:
+		fmt.Println("Saindo do programa...")
+	default:
+		fmt.Println("Não conhece esse comando!")
 	}
+
+	
 }
