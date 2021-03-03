@@ -27,7 +27,7 @@ func lerComando() int {
 	return comando
 }
 
-func lerSite() string{
+func lerSite() string {
 	var site string
 	fmt.Scan(&site)
 	return site
@@ -54,23 +54,25 @@ func iniciarMonitoramento() {
 
 func main() {
 	exibirIntroducao()
+
+	for {
 	exibirMenu()
 
 	comando := lerComando()
 	fmt.Printf("O comando escolhido foi %d\n", comando)
 
-	switch comando {
-	case 1:
-		fmt.Println("Monitorando...")
-		iniciarMonitoramento()
-	case 2:
-		fmt.Println("Exibindo logs...")
-	case 0:
-		fmt.Println("Saindo do programa...")
-		os.Exit(0) //o pacote os, contém a função exit, que permite sair do programa, de acordo com o parâmetro 0 passado a ele
-	default:
-		fmt.Println("Não conhece esse comando!")
-		os.Exit(-1) //assim como também permite informar que algo deu errado no programa, de acordo com o parâmetro -1 passado a ele
-
+		switch comando {
+		case 1:
+			fmt.Println("Monitorando...")
+			iniciarMonitoramento()
+		case 2:
+			fmt.Println("Exibindo logs...")
+		case 0:
+			fmt.Println("Saindo do programa...")
+			os.Exit(0) //o pacote os, contém a função exit, que permite sair do programa, de acordo com o parâmetro 0 passado a ele
+		default:
+			fmt.Println("Não conhece esse comando!")
+			os.Exit(-1) //assim como também permite informar que algo deu errado no programa, de acordo com o parâmetro -1 passado a ele
+		}
 	}
 }

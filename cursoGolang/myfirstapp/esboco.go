@@ -40,6 +40,4 @@ func main(){
 	default:
 		fmt.Println("Não conhece esse comando!")
 	}
-
-	
 }
