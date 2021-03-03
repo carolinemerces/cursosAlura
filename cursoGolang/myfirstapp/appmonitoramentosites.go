@@ -7,13 +7,18 @@ import (
 	"time"
 )
 
+const monitoramento = 3
+const delay = 5
+
 func exibirIntroducao() {
 	fmt.Println("Insira seu nome: ")
 	nome := lerNome()
 	versao := 1.1
+	fmt.Println("")
 	fmt.Println("Olá, sr(a).", nome)
 	fmt.Println("Este programa está na versão: ", versao)
 	fmt.Println("Escolha uma opção para dar início ao programa: ")
+	fmt.Println("")
 }
 
 func lerNome() string {
@@ -38,10 +43,12 @@ func exibirMenu() {
 	fmt.Println("1 - Iniciar Monitoramento")
 	fmt.Println("2 - Exibir Logs")
 	fmt.Println("0 - Sair")
+	fmt.Println("")
 }
 
 func iniciarMonitoramento() {
 	fmt.Println("Insira o site que deseja fazer o monitoramento: ")
+	fmt.Println("")
 	//array
 	/*
 		var site [3]string
@@ -63,19 +70,22 @@ func iniciarMonitoramento() {
 	site := []string{lerSite(), lerSite()}
 
 	//for range - passado a posicao e o que ela contém
-	for i := 0; i < 5; i++ { //colocar um tempo para repetir a operação
+	for i := 0; i < monitoramento; i++ { //colocar um tempo para repetir a operação
 		for i, sites := range site {
 			fmt.Println("Testando site: ", i, ": ", sites)
+			fmt.Println("")
 
 			resp, _ := http.Get(site[i])
 
 			if resp.StatusCode == 200 {
 				fmt.Println("Site", site[i], "foi carregado com sucesso!")
-			} else {
+				fmt.Println("")
+				} else {
 				fmt.Println("Site", site[i], "com probelmas, Status Code: ", resp.StatusCode)
+				fmt.Println("")
 			}
 		}
-		time.Sleep(5 * time.Second) //o pacote time, possui a função sleep que permite colocar um tempo para que a operação seja executada
+		time.Sleep(delay * time.Second) //o pacote time, possui a função sleep que permite colocar um tempo para que a operação seja executada
 	}
 
 	//for comum- varrendo o slice até o tamanho dele, passando somente o conteúdo dele
