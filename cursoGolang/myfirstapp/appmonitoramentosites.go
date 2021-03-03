@@ -27,6 +27,12 @@ func lerComando() int {
 	return comando
 }
 
+func lerSite() string{
+	var site string
+	fmt.Scan(&site)
+	return site
+}
+
 func exibirMenu() {
 	fmt.Println("1 - Iniciar Monitoramento")
 	fmt.Println("2 - Exibir Logs")
@@ -34,9 +40,16 @@ func exibirMenu() {
 }
 
 func iniciarMonitoramento() {
-	site := "http://www.alura.com.br"
+	fmt.Println("Insira o site que deseja fazer o monitoramento: ")
+	site := lerSite()
 	resp, _ := http.Get(site) //o pacote net/http permite fazer requisições de acesso a web (Get, Post...) e além da resposta, ela tbm retorna um possível erro, que podemos ignorar
 	fmt.Println(resp)
+
+	if resp.StatusCode == 200 {
+		fmt.Println("Site", site, " foi carregado com sucesso!")
+	} else {
+		fmt.Println("Site", site, "com probelmas, Status Code: ", resp.StatusCode)
+	}
 }
 
 func main() {
@@ -49,6 +62,7 @@ func main() {
 	switch comando {
 	case 1:
 		fmt.Println("Monitorando...")
+		iniciarMonitoramento()
 	case 2:
 		fmt.Println("Exibindo logs...")
 	case 0:
