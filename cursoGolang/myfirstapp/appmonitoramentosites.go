@@ -63,7 +63,7 @@ func iniciarMonitoramento() {
 
 	//for range - passado a posicao e o que ela contém
 	for i, sites := range site {
-		fmt.Println("Posição: ", i, "do slice e ela tem o site: ", sites)
+		fmt.Println("Testando site: ", i, ": ", sites)
 	
 		resp, _ := http.Get(site[i])
 
@@ -106,7 +106,7 @@ func main() {
 			fmt.Println("Saindo do programa...")
 			os.Exit(0) //o pacote os, contém a função exit, que permite sair do programa, de acordo com o parâmetro 0 passado a ele
 		default:
-			fmt.Println("Não conhece esse comando!")
+			fmt.Println("Comando não reconhecido!")
 			os.Exit(-1) //assim como também permite informar que algo deu errado no programa, de acordo com o parâmetro -1 passado a ele
 		}
 	}
