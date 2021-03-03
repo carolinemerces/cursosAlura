@@ -35,8 +35,8 @@ func exibirMenu() {
 
 func iniciarMonitoramento() {
 	site := "http://www.alura.com.br"
-	resp, err := http.Get(site) //o pacote net/http permite fazer requisições de acesso a web (Get, Post...) e além da resposta, ela tbm retorna um possível erro
-
+	resp, _ := http.Get(site) //o pacote net/http permite fazer requisições de acesso a web (Get, Post...) e além da resposta, ela tbm retorna um possível erro, que podemos ignorar
+	fmt.Println(resp)
 }
 
 func main() {
