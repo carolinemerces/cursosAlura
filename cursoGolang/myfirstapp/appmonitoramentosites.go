@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"time"
 )
 
 func exibirIntroducao() {
@@ -59,19 +60,22 @@ func iniciarMonitoramento() {
 	*/
 
 	//slice
-	site := []string{lerSite(), lerSite(), lerSite()}
+	site := []string{lerSite(), lerSite()}
 
 	//for range - passado a posicao e o que ela contém
-	for i, sites := range site {
-		fmt.Println("Testando site: ", i, ": ", sites)
-	
-		resp, _ := http.Get(site[i])
+	for i := 0; i < 5; i++ { //colocar um tempo para repetir a operação
+		for i, sites := range site {
+			fmt.Println("Testando site: ", i, ": ", sites)
 
-		if resp.StatusCode == 200 {
-			fmt.Println("Site", site[i], "foi carregado com sucesso!")
-		} else {
-			fmt.Println("Site", site[i], "com probelmas, Status Code: ", resp.StatusCode)
+			resp, _ := http.Get(site[i])
+
+			if resp.StatusCode == 200 {
+				fmt.Println("Site", site[i], "foi carregado com sucesso!")
+			} else {
+				fmt.Println("Site", site[i], "com probelmas, Status Code: ", resp.StatusCode)
+			}
 		}
+		time.Sleep(5 * time.Second) //o pacote time, possui a função sleep que permite colocar um tempo para que a operação seja executada
 	}
 
 	//for comum- varrendo o slice até o tamanho dele, passando somente o conteúdo dele
