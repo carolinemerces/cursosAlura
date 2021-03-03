@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func exibirIntroducao() {
 	fmt.Println("Insira seu nome: ")
@@ -11,10 +14,10 @@ func exibirIntroducao() {
 	fmt.Println("Escolha uma opção para dar início ao programa: ")
 }
 
-func lerNome() string{
-var nome string
-fmt.Scan(&nome)
-return nome
+func lerNome() string {
+	var nome string
+	fmt.Scan(&nome)
+	return nome
 }
 
 func lerComando() int {
@@ -23,14 +26,10 @@ func lerComando() int {
 	return comando
 }
 
-func exibirMenu(){
+func exibirMenu() {
 	fmt.Println("1 - Iniciar Monitoramento")
 	fmt.Println("2 - Exibir Logs")
 	fmt.Println("0 - Sair")
-}
-
-func sair(){
-	
 }
 
 func main() {
@@ -38,6 +37,19 @@ func main() {
 	exibirMenu()
 
 	comando := lerComando()
-	fmt.Printf("O comando escolhido foi %d", comando)
+	fmt.Printf("O comando escolhido foi %d\n", comando)
 
+	switch comando {
+	case 1:
+		fmt.Println("Monitorando...")
+	case 2:
+		fmt.Println("Exibindo logs...")
+	case 0:
+		fmt.Println("Saindo do programa...")
+		os.Exit(0) //o pacote os, contém a função exit, que permite sair do programa, de acordo com o parâmetro 0 passado a ele
+	default:
+		fmt.Println("Não conhece esse comando!") 
+		os.Exit(-1)//assim como também permite informar que algo deu errado no programa, de acordo com o parâmetro -1 passado a ele
+	
+	}
 }
