@@ -41,25 +41,60 @@ func exibirMenu() {
 
 func iniciarMonitoramento() {
 	fmt.Println("Insira o site que deseja fazer o monitoramento: ")
-	site := lerSite()
-	resp, _ := http.Get(site) //o pacote net/http permite fazer requisições de acesso a web (Get, Post...) e além da resposta, ela tbm retorna um possível erro, que podemos ignorar
-	fmt.Println(resp)
+	//array
+	/*
+		var site [3]string
+		site[0] = lerSite()
+		site[1] = lerSite()
+		site[1] = lerSite()
 
-	if resp.StatusCode == 200 {
-		fmt.Println("Site", site, " foi carregado com sucesso!")
-	} else {
-		fmt.Println("Site", site, "com probelmas, Status Code: ", resp.StatusCode)
+		resp, _ := http.Get(site[i]) //o pacote net/http permite fazer requisições de acesso a web (Get, Post...) e além da resposta, ela tbm retorna um possível erro, que podemos ignorar
+		fmt.Println(resp)
+
+		if resp.StatusCode == 200 {
+				fmt.Println("Site", site[i], "foi carregado com sucesso!")
+			} else {
+				fmt.Println("Site", site[i], "com probelmas, Status Code: ", resp.StatusCode)
+			}
+	*/
+
+	//slice
+	site := []string{lerSite(), lerSite(), lerSite()}
+
+	//for range - passado a posicao e o que ela contém
+	for i, sites := range site {
+		fmt.Println("Posição: ", i, "do slice e ela tem o site: ", sites)
+	
+		resp, _ := http.Get(site[i])
+
+		if resp.StatusCode == 200 {
+			fmt.Println("Site", site[i], "foi carregado com sucesso!")
+		} else {
+			fmt.Println("Site", site[i], "com probelmas, Status Code: ", resp.StatusCode)
+		}
 	}
+
+	//for comum- varrendo o slice até o tamanho dele, passando somente o conteúdo dele
+	/*for i := 0; i < len(site); i++ {
+		//fmt.Println(site[i])
+		resp, _ := http.Get(site[i])
+
+		if resp.StatusCode == 200 {
+			fmt.Println("Site", site[i], "foi carregado com sucesso!")
+		} else {
+			fmt.Println("Site", site[i], "com probelmas, Status Code: ", resp.StatusCode)
+		}
+	}*/
 }
 
 func main() {
 	exibirIntroducao()
 
 	for {
-	exibirMenu()
+		exibirMenu()
 
-	comando := lerComando()
-	fmt.Printf("O comando escolhido foi %d\n", comando)
+		comando := lerComando()
+		fmt.Printf("O comando escolhido foi %d\n", comando)
 
 		switch comando {
 		case 1:
