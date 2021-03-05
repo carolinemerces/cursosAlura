@@ -77,7 +77,7 @@ func lerSitesdoArquivo() []string {
 	}
 
 	//fmt.Println(sites)
-
+	arquivo.Close() //são boa práticas sempre que abrir um arquivo, fechá-lo para ele possa ser usar em outras situações dentro do programa
 	return sites
 }
 
