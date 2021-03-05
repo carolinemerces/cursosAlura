@@ -3,8 +3,10 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -12,13 +14,13 @@ const monitoramento = 3
 const delay = 5
 
 func exibirIntroducao() {
-	fmt.Println("Insira seu nome: ")
+	fmt.Println("Insira seu nome:")
 	nome := lerNome()
 	versao := 1.2
 	fmt.Println("")
 	fmt.Println("Olá, sr(a).", nome)
-	fmt.Println("Este programa está na versão: ", versao)
-	fmt.Println("Escolha uma opção para dar início ao programa: ")
+	fmt.Println("Este programa está na versão:", versao)
+	fmt.Println("Escolha uma opção para dar início ao programa:")
 	fmt.Println("")
 }
 
@@ -55,15 +57,27 @@ func lerSitesdoArquivo() []string {
 	//fmt.Println(string(arquivo)) //convertendo esse arquivo que está retornando um array de bytes em string
 
 	if err != nil {
-		fmt.Println("Ocorreu um erro: ", err)
+		fmt.Println("Ocorreu um erro:", err)
 	}
 
 	leitor := bufio.NewReader(arquivo) //o pacote bufio, com a função NewReader, permite abrir e ler um arquivo e através de outra função lê-lo e convertê-lo para string
+
+	//utilização do for para repetir a mesma ação até que ele retorne um erro de que não há mais linhas para ler (End On File - EFO)
+	for {
 		linha, err := leitor.ReadString('\n') //a função ReadSring, converte os bytes em string, percorrendo cada byte até onde preciso que ele leia. No caso até a quebra de linha, representada pelo \n, com '', pois se trata de byte
-		if err != nil {
-			fmt.Println("Ocorreu um erro: ", err)
+		linha = strings.TrimSpace(linha)      //a função TrimSpace, do pacote de strings, permite retirar os espaços e pular uma linha a cada execução da função acima
+		//fmt.Println(linha)
+
+		sites = append(sites, linha) //ao invés de imprimir a linha, colocamos ela dentro do nosso slice de sites
+
+		if err == io.EOF { //quando o erro for igual a não há mais linhas para leitura, quero que ele pare a execução do for
+			//fmt.Println("Ocorreu um erro: ", err)
+			break
 		}
-		fmt.Println(linha)
+	}
+
+	//fmt.Println(sites)
+
 	return sites
 }
 
@@ -80,20 +94,20 @@ func iniciarMonitoramento() {
 	//for range - passado a posicao e o que ela contém
 	for i := 0; i < monitoramento; i++ { //colocar um tempo para repetir a operação
 		for i, sites := range site {
-			fmt.Println("Testando site: ", i, ": ", sites)
-			fmt.Println("")
+			fmt.Println("Testando site:", i, ":", sites)
+			//fmt.Println("")
 
 			resp, err := http.Get(site[i])
 
 			if err != nil {
-				fmt.Println("Ocorreu um erro: ", err)
+				fmt.Println("Ocorreu um erro:", err)
 			}
 
 			if resp.StatusCode == 200 {
 				fmt.Println("Site", site[i], "foi carregado com sucesso!")
 				fmt.Println("")
 			} else {
-				fmt.Println("Site", site[i], "com probelmas, Status Code: ", resp.StatusCode)
+				fmt.Println("Site", site[i], "com problemas, Status Code:", resp.StatusCode)
 				fmt.Println("")
 			}
 		}
