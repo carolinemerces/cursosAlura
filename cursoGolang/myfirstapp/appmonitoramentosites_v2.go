@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"net/http"
 	"os"
@@ -46,16 +47,23 @@ func exibirMenu() {
 	fmt.Println("")
 }
 
-func lerSitesdoArquivo() []string{
+func lerSitesdoArquivo() []string {
 	var sites []string
 
-	arquivo, err := os.Open("sites.txt")
+	arquivo, err := os.Open("sites.txt") //o pacote os, com a função Open, permite abrir um arquivo, porém mostrando seu endereço
+	//arquivo, err := ioutil.ReadFile("sites.txt") //o pacote ioutil, com a função ReadFile, permite abrir e ler um arquivo, retornando um array de bytes, porém desta forma é mais fácil convertar uma uma string
+	//fmt.Println(string(arquivo)) //convertendo esse arquivo que está retornando um array de bytes em string
 
 	if err != nil {
 		fmt.Println("Ocorreu um erro: ", err)
 	}
 
-	fmt.Println(arquivo)
+	leitor := bufio.NewReader(arquivo) //o pacote bufio, com a função NewReader, permite abrir e ler um arquivo e através de outra função lê-lo e convertê-lo para string
+		linha, err := leitor.ReadString('\n') //a função ReadSring, converte os bytes em string, percorrendo cada byte até onde preciso que ele leia. No caso até a quebra de linha, representada pelo \n, com '', pois se trata de byte
+		if err != nil {
+			fmt.Println("Ocorreu um erro: ", err)
+		}
+		fmt.Println(linha)
 	return sites
 }
 
@@ -84,7 +92,7 @@ func iniciarMonitoramento() {
 			if resp.StatusCode == 200 {
 				fmt.Println("Site", site[i], "foi carregado com sucesso!")
 				fmt.Println("")
-				} else {
+			} else {
 				fmt.Println("Site", site[i], "com probelmas, Status Code: ", resp.StatusCode)
 				fmt.Println("")
 			}
