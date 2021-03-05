@@ -1,0 +1,5 @@
+http://www.alura.com.br
+http://www.google.com.br
+http://mercadolivre.com.br
+http://mercadopago.com.br
+https://random-status-code.herokuapp.com
