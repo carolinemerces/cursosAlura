@@ -6,17 +6,18 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
 )
 
-const monitoramento = 3
+const monitoramento = 1
 const delay = 5
+const versao = 1.3
 
 func exibirIntroducao() {
 	fmt.Println("Insira seu nome:")
 	nome := lerNome()
-	versao := 1.2
 	fmt.Println("")
 	fmt.Println("Olá, sr(a).", nome)
 	fmt.Println("Este programa está na versão:", versao)
@@ -47,6 +48,19 @@ func exibirMenu() {
 	fmt.Println("2 - Exibir Logs")
 	fmt.Println("0 - Sair")
 	fmt.Println("")
+}
+
+func registraLog(site string, status bool) { //função para abrir e criar um arquivo para registrar os logs dos sites (data, horário e status)
+	//arquivo, err := os.Open("log.txt")//irá abrir o arquivo
+	arquivo, err := os.OpenFile("log.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666) //a função openFile, permite além de abrir um arquivo, criar caso ele não exista e editar, escrevendo (através da flag, que é um dos parâmetros exigidos para essa função) e adicionar um número para permissão de acesso ao arquivo
+	if err != nil {
+		fmt.Println(err)
+	}
+	//fmt.Println(arquivo)
+
+	arquivo.WriteString(site + " - online: " + strconv.FormatBool(status) + "\n")
+
+	arquivo.Close()
 }
 
 func lerSitesdoArquivo() []string {
@@ -105,9 +119,11 @@ func iniciarMonitoramento() {
 
 			if resp.StatusCode == 200 {
 				fmt.Println("Site", site[i], "foi carregado com sucesso!")
+				registraLog(site[i], true)
 				fmt.Println("")
 			} else {
 				fmt.Println("Site", site[i], "com problemas, Status Code:", resp.StatusCode)
+				registraLog(site[i], false)
 				fmt.Println("")
 			}
 		}
@@ -117,7 +133,8 @@ func iniciarMonitoramento() {
 
 func main() {
 	exibirIntroducao()
-	lerSitesdoArquivo()
+	//lerSitesdoArquivo()
+	//registraLog("site-false", false)
 
 	for {
 		exibirMenu()
