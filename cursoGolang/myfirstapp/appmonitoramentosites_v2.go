@@ -58,7 +58,7 @@ func registraLog(site string, status bool) { //função para abrir e criar um ar
 	}
 	//fmt.Println(arquivo)
 
-	arquivo.WriteString(site + " - online: " + strconv.FormatBool(status) + "\n")
+	arquivo.WriteString(time.Now().Format("02/01/2006 15:04:05 - ") + site + " - online: " + strconv.FormatBool(status) + "\n")
 
 	arquivo.Close()
 }
