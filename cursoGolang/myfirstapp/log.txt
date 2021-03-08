@@ -1,0 +1,10 @@
+08/03/2021 13:31:33 - http://www.alura.com.br - online: true
+08/03/2021 13:31:34 - http://www.google.com.br - online: true
+08/03/2021 13:31:35 - http://mercadolivre.com.br - online: true
+08/03/2021 13:31:35 - http://mercadopago.com.br - online: true
+08/03/2021 13:31:36 - https://random-status-code.herokuapp.com - online: false
+08/03/2021 13:32:46 - http://www.alura.com.br - online: true
+08/03/2021 13:32:46 - http://www.google.com.br - online: true
+08/03/2021 13:32:47 - http://mercadolivre.com.br - online: true
+08/03/2021 13:32:47 - http://mercadopago.com.br - online: true
+08/03/2021 13:32:48 - https://random-status-code.herokuapp.com - online: false

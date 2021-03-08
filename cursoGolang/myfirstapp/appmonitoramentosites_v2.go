@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strconv"
@@ -61,6 +62,14 @@ func registraLog(site string, status bool) { //função para abrir e criar um ar
 	arquivo.WriteString(time.Now().Format("02/01/2006 15:04:05 - ") + site + " - online: " + strconv.FormatBool(status) + "\n")
 
 	arquivo.Close()
+}
+
+func imprimeLog() { //essa função vai abrir, ler e imprimir o arquivo, sem a necessidade de fechá-lo, por conta do pacote ioutil
+	arquivo, err := ioutil.ReadFile("log.txt")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(string(arquivo))
 }
 
 func lerSitesdoArquivo() []string {
@@ -148,6 +157,7 @@ func main() {
 			iniciarMonitoramento()
 		case 2:
 			fmt.Println("Exibindo logs...")
+			imprimeLog()
 		case 0:
 			fmt.Println("Saindo do programa...")
 			os.Exit(0) //o pacote os, contém a função exit, que permite sair do programa, de acordo com o parâmetro 0 passado a ele
